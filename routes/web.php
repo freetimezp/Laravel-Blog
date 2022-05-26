@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\SignupController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,11 +27,16 @@ Route::get('/single', function () {
 });
 
 Route::get('/login', function () {
-    return view('login');
+    return view('auth.login');
 });
 
-Route::get('/register', function () {
-    return view('register');
+Route::get('/signup', function () {
+    return view('auth.signup');
 });
 
+
+Route::post('/login', [LoginController::class, 'save']);
+Route::post('/signup', [SignupController::class, 'save']);
+
+Route::get('/admin', [AdminController::class, 'index'])->middleware('auth');
 

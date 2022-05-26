@@ -60,10 +60,6 @@
         text-decoration: none;
     }
 
-    .form .register-form {
-        display: none;
-    }
-
     .container {
         position: relative;
         z-index: 1;
@@ -120,31 +116,22 @@
 
 <div class="login-page">
     <div class="form">
-        <form class="register-form" method="post" action="{{url('register')}}">
+        <form class="register-form" method="post" action="{{url('signup')}}">
             @csrf
-            <h3>Register</h3>
-            <input type="text" placeholder="name"/>
-            <input type="password" placeholder="password"/>
-            <input type="text" placeholder="email address"/>
-            <button>create</button>
-            <p class="message">Already registered? <a href="#">Sign In</a></p>
-        </form>
-        <form class="login-form" method="post" action="{{url('login')}}>
-            @csrf
-            <h3>Login</h3>
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
-            <button>login</button>
-            <p class="message">Not registered? <a href="#">Create an account</a></p>
+            <h3>Signup</h3>
+            @foreach($errors->all() as $error)
+                <div class="text-danger" style="font-size: 12px;">->> {{$error}}</div>
+            @endforeach
+            <input type="text" name="name" placeholder="name" value="{{old('name')}}"/>
+            <input type="text" name="email" placeholder="email" value="{{old('email')}}"/>
+            <input type="text" name="password" placeholder="password"/>
+            <button>Create</button>
+            <p class="message">Already registered? <a href="{{url('login')}}">Sign in</a></p>
         </form>
     </div>
 </div>
 
 @include('footer')
 
-<script>
-    $('.message a').click(function () {
-        $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-    });
-</script>
+
 
