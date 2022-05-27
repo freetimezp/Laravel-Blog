@@ -125,6 +125,10 @@
             @endforeach
             <input type="text" name="email" placeholder="email" value="{{old('email')}}"/>
             <input type="password" name="password" placeholder="password"/>
+            <div class="row">
+                <input id="remember_1" type="checkbox" name="remember" style="width: auto;">
+                <label for="remember_1">Remember me</label>
+            </div>
             <button>login</button>
             <p class="message">Not registered? <a href="{{url('signup')}}">Create an account</a></p>
         </form>

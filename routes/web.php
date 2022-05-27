@@ -28,14 +28,12 @@ Route::get('/single', function () {
 
 Route::get('/login', function () {
     return view('auth.login');
-});
+})->name('login');
+Route::post('/login', [LoginController::class, 'save']);
 
 Route::get('/signup', function () {
     return view('auth.signup');
 });
-
-
-Route::post('/login', [LoginController::class, 'save']);
 Route::post('/signup', [SignupController::class, 'save']);
 
 Route::get('/admin', [AdminController::class, 'index'])->middleware('auth');
