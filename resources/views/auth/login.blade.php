@@ -120,8 +120,11 @@
         <form class="login-form" method="post" action="{{url('login')}}">
             @csrf
             <h3>Login</h3>
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
+            @foreach($errors->all() as $error)
+                <div class="text-danger" style="font-size: 12px;">->> {{$error}}</div>
+            @endforeach
+            <input type="text" name="email" placeholder="email" value="{{old('email')}}"/>
+            <input type="password" name="password" placeholder="password"/>
             <button>login</button>
             <p class="message">Not registered? <a href="{{url('signup')}}">Create an account</a></p>
         </form>
