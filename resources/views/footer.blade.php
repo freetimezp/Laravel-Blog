@@ -1,7 +1,9 @@
 
 <footer id="fh5co-footer">
     <p><small>&copy; 2022. Simple blog, news site.</small></p>
-    <a href="{{url('login')}}"><b>Login</b></a> . <a href="{{url('signup')}}"><b>Signup</b></a>
+    <a href="{{url('login')}}"><b>Login</b></a> .
+    <a href="{{url('signup')}}"><b>Signup</b></a> .
+    <a href="{{url('admin')}}"><b>Admin panel</b></a>
 </footer>
 
 

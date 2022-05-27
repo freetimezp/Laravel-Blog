@@ -9,7 +9,19 @@ class AdminController extends Controller
 {
     //
     public function index(Request $req) {
-        return view('admin.admin');
+        return view('admin.admin', ['page_title' => 'dashboard']);
+    }
+
+    public function posts(Request $req) {
+        return view('admin.admin', ['page_title' => 'posts']);
+    }
+
+    public function categories(Request $req) {
+        return view('admin.admin', ['page_title' => 'categories']);
+    }
+
+    public function users(Request $req) {
+        return view('admin.admin', ['page_title' => 'users']);
     }
 
     public function save(Request $req) {

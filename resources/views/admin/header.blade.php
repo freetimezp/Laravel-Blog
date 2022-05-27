@@ -18,7 +18,7 @@
 
 <div id="wrapper">
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="adjust-nav">
+        <div class="adjust-nav header-main-top">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
                     <span class="icon-bar"></span>
@@ -26,13 +26,14 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                    <img src="{{url('assets/admin/img/logo.png')}}"/>
+                    <img style="width: 50px; height: 50px;" src="{{url('assets/admin/img/logo.png')}}"/>
                 </a>
             </div>
 
-            <span class="logout-spn">
-                  <a href="#" style="color:#fff;">LOGOUT</a>
-            </span>
+            <div class="header-btns">
+                <a href="{{url('/')}}" style="color:#fff;">Website</a>
+                <a href="{{url('logout')}}" style="color:#fff;">Logout</a>
+            </div>
         </div>
     </div>
     <!-- /. NAV TOP  -->
