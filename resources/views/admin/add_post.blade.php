@@ -32,11 +32,12 @@
                     </select>
                 </div>
 
-                <div class="form-group row post-form-block">
+                <div class="form-group row post-form-block mb-2">
                     <label for="summernote">Content:</label>
                     <textarea name="content" id="summernote"></textarea>
                 </div>
 
+                <input class="btn btn-primary" type="submit" value="Create">
             </form>
         </div>
     </div>

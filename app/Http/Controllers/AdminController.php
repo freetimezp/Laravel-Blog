@@ -16,6 +16,12 @@ class AdminController extends Controller
         if($type) {
             switch($type) {
                 case 'add':
+                    if($req->method() == 'POST') {
+                        // we create 'my_disk' in App/Config/filesystem.php
+                        // by default files saves in Storage/App/Public
+                        $req->file('file')->store('/', ['disk' => 'my_disk']);
+                    }
+
                     return view('admin.add_post', ['page_title' => 'New post']);
                     break;
 
