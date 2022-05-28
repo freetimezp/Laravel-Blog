@@ -10,12 +10,25 @@
                 <h2>{{ucfirst($page_title)}}</h2>
             </div>
 
-            <div style="margin-top: 70px;">
-                <form>
-                    @csrf
-                    <textarea name="content" id="summernote"></textarea>
-                </form>
-            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Content</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

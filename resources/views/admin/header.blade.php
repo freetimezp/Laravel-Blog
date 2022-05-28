@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Simple Responsive Admin</title>
+    <title>Admin panel</title>
     <!-- BOOTSTRAP STYLES-->
     <link href="{{url('assets/admin/css/bootstrap.css')}}" rel="stylesheet"/>
     <!-- FONTAWESOME STYLES-->
@@ -25,14 +25,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">
-                    <img style="width: 50px; height: 50px;" src="{{url('assets/admin/img/logo.png')}}"/>
+                <a href="#" class="header-logo">
+                    <img src="{{url('assets/admin/img/logo.png')}}" alt="blog"/>
                 </a>
             </div>
 
             <div class="header-btns">
-                <a href="{{url('/')}}" style="color:#fff;">Website</a>
-                <a href="{{url('logout')}}" style="color:#fff;">Logout</a>
+                <a href="{{url('/')}}" style="color:#fff; margin-right: 20px;">Website</a>
+                <div class="header-btns-auth">
+                    @auth
+                        <a href="#">Hi, <span>{{Auth::user()->name}}</span></a>
+                    @endauth
+                    <a href="{{url('logout')}}">Logout</a>
+                </div>
             </div>
         </div>
     </div>
