@@ -10,12 +10,34 @@
                 <h2>{{ucfirst($page_title)}}</h2>
             </div>
 
-            <div style="margin-top: 70px;">
-                <form>
-                    @csrf
+            <form class="post-form-add col-lg-10" enctype="multipart/form-data" method="post">
+                @csrf
+                <div class="form-group row post-form-block">
+                    <label for="add_post_title">Title:</label>
+                    <input type="text" class="form-control" name="title" placeholder="Title" id="add_post_title">
+                </div>
+
+                <div class="form-group row post-form-block">
+                    <label for="add_post_image">Image:</label>
+                    <input type="file" class="form-control" name="file" id="add_post_image">
+                </div>
+
+                <div class="form-group row post-form-block">
+                    <label for="add_post_select">Category:</label>
+                    <select name="category_id" class="post-form-add-select form-control" id="add_post_select">
+                        <option>--Select a category--</option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                    </select>
+                </div>
+
+                <div class="form-group row post-form-block">
+                    <label for="summernote">Content:</label>
                     <textarea name="content" id="summernote"></textarea>
-                </form>
-            </div>
+                </div>
+
+            </form>
         </div>
     </div>
 </div>

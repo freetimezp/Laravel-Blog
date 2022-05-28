@@ -16,7 +16,7 @@ class AdminController extends Controller
         if($type) {
             switch($type) {
                 case 'add':
-                    return view('admin.add_post', ['page_title' => 'Add post']);
+                    return view('admin.add_post', ['page_title' => 'New post']);
                     break;
 
                 case 'edit':

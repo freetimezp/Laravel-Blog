@@ -151,5 +151,28 @@ body {
     border-radius: 5px;
 }
 
+.post-form-add {
+    margin: 5px;
+    padding: 10px;
+}
+
+.post-form-add input {
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+.post-form-add-select {
+    margin-bottom: 20px;
+}
+
+.post-form-block {
+    margin-left: 0;
+}
+
+.post-form-block label {
+    display: block;
+}
+
+
 
 
