@@ -13,7 +13,7 @@ class AdminController extends Controller
     }
 
     public function posts(Request $req) {
-        return view('admin.admin', ['page_title' => 'posts']);
+        return view('admin.posts', ['page_title' => 'posts']);
     }
 
     public function categories(Request $req) {
