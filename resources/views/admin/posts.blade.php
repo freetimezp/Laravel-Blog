@@ -14,6 +14,7 @@
                 <thead>
                     <tr>
                         <th>Title</th>
+                        <th>Category</th>
                         <th>Content</th>
                         <th>Image</th>
                         <th>Date</th>
@@ -26,8 +27,9 @@
                         @foreach($rows as $row)
                             <tr>
                                 <td>{{$row->title}}</td>
+                                <td>{{$row->category}}</td>
                                 <td>{{$row->content}}</td>
-                                <td><img src="{{url('uploads/') . $row->image}}" alt="post" style="width:150px;"></td>
+                                <td><img src="{{url('uploads') . '/' . $row->image}}" alt="post" style="width:150px;"></td>
                                 <td>{{$row->created_at}}</td>
                                 <td>Edit | Delete</td>
                             </tr>

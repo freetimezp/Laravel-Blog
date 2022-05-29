@@ -51,8 +51,11 @@ class AdminController extends Controller
                 break;
 
             default:
-                $post = new PostModel();
-                $rows = $post->all();
+                //$post = new PostModel();
+                //$rows = $post->all();
+
+                $query = "SELECT posts.*, categories.category FROM posts JOIN categories ON posts.category_id = categories.id";
+                $rows = DB::select($query);
 
                 $data['rows'] = $rows;
                 $data['page_title'] = 'posts';
