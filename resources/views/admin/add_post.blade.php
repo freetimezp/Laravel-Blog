@@ -12,9 +12,14 @@
 
             <form class="post-form-add col-lg-10" enctype="multipart/form-data" method="post">
                 @csrf
+                @if ($errors)
+                    @foreach($errors->all() as $error)
+                        <div class="text-danger">{{$error}}</div>
+                    @endforeach
+                @endif
                 <div class="form-group row post-form-block">
                     <label for="add_post_title">Title:</label>
-                    <input type="text" class="form-control" name="title" placeholder="Title" id="add_post_title">
+                    <input type="text" class="form-control" name="title" placeholder="Title" id="add_post_title" value="{{old('title')}}">
                 </div>
 
                 <div class="form-group row post-form-block">
@@ -34,7 +39,7 @@
 
                 <div class="form-group row post-form-block mb-2">
                     <label for="summernote">Content:</label>
-                    <textarea name="content" id="summernote"></textarea>
+                    <textarea name="content" id="summernote">{{old('content')}}</textarea>
                 </div>
 
                 <input class="btn btn-primary" type="submit" value="Create">

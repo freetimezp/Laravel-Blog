@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\PostModel;
 
 class AdminController extends Controller
 {
@@ -17,9 +18,26 @@ class AdminController extends Controller
             switch($type) {
                 case 'add':
                     if($req->method() == 'POST') {
+                        $post = new PostModel();
+
+                        $validated = $req->validate([
+                            'title' => 'required',
+                            'file' => 'required|image',
+                            'content' => 'required',
+                        ]);
+
                         // we create 'my_disk' in App/Config/filesystem.php
                         // by default files saves in Storage/App/Public
-                        $req->file('file')->store('/', ['disk' => 'my_disk']);
+                        $path = $req->file('file')->store('/', ['disk' => 'my_disk']);
+
+                        $data['title'] = $req->input('title');
+                        $data['category_id'] = 1;
+                        $data['image'] = $path;
+                        $data['content'] = $req->input('content');
+                        $data['created_at'] = date("Y-m-d H:i:s");
+                        $data['updated_at'] = date("Y-m-d H:i:s");
+
+                        $post->insert($data);
                     }
 
                     return view('admin.add_post', ['page_title' => 'New post']);
