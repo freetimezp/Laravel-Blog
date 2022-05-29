@@ -14,49 +14,51 @@ class AdminController extends Controller
     }
 
     public function posts(Request $req, $type = '') {
-        if($type) {
-            switch($type) {
-                case 'add':
-                    if($req->method() == 'POST') {
-                        $post = new PostModel();
+        switch($type) {
+            case 'add':
+                if($req->method() == 'POST') {
+                    $post = new PostModel();
 
-                        $validated = $req->validate([
-                            'title' => 'required',
-                            'file' => 'required|image',
-                            'content' => 'required',
-                        ]);
+                    $validated = $req->validate([
+                        'title' => 'required',
+                        'file' => 'required|image',
+                        'content' => 'required',
+                    ]);
 
-                        // we create 'my_disk' in App/Config/filesystem.php
-                        // by default files saves in Storage/App/Public
-                        $path = $req->file('file')->store('/', ['disk' => 'my_disk']);
+                    // we create 'my_disk' in App/Config/filesystem.php
+                    // by default files saves in Storage/App/Public
+                    $path = $req->file('file')->store('/', ['disk' => 'my_disk']);
 
-                        $data['title'] = $req->input('title');
-                        $data['category_id'] = 1;
-                        $data['image'] = $path;
-                        $data['content'] = $req->input('content');
-                        $data['created_at'] = date("Y-m-d H:i:s");
-                        $data['updated_at'] = date("Y-m-d H:i:s");
+                    $data['title'] = $req->input('title');
+                    $data['category_id'] = 1;
+                    $data['image'] = $path;
+                    $data['content'] = $req->input('content');
+                    $data['created_at'] = date("Y-m-d H:i:s");
+                    $data['updated_at'] = date("Y-m-d H:i:s");
 
-                        $post->insert($data);
-                    }
+                    $post->insert($data);
+                }
 
-                    return view('admin.add_post', ['page_title' => 'New post']);
-                    break;
+                return view('admin.add_post', ['page_title' => 'New post']);
+                break;
 
-                case 'edit':
-                    return view('admin.edit_post', ['page_title' => 'Edit post']);
-                    break;
+            case 'edit':
+                return view('admin.edit_post', ['page_title' => 'Edit post']);
+                break;
 
-                case 'delete':
-                    return view('admin.delete_post', ['page_title' => 'Delete post']);
-                    break;
+            case 'delete':
+                return view('admin.delete_post', ['page_title' => 'Delete post']);
+                break;
 
-                default:
-                    return view('admin.posts', ['page_title' => 'posts']);
-                    break;
-            }
-        }else{
-            return view('admin.posts', ['page_title' => 'posts']);
+            default:
+                $post = new PostModel();
+                $rows = $post->all();
+
+                $data['rows'] = $rows;
+                $data['page_title'] = 'posts';
+
+                return view('admin.posts', $data);
+                break;
         }
     }
 
