@@ -180,7 +180,11 @@ body {
 .posts-page-add-button-block {
     display: flex;
     align-items: center;
-    vertical-align: center;
+}
+
+.posts-page-edit-button-block {
+    display: flex;
+    align-items: center;
 }
 
 .posts-page-add-button-block button {

@@ -10,7 +10,7 @@
                 <h2>{{ucfirst($page_title)}}</h2>
             </div>
 
-            <form class="post-form-add col-lg-10" enctype="multipart/form-data" method="post">
+            <form class="post-form-edit col-lg-10" enctype="multipart/form-data" method="post">
                 @csrf
                 @if ($errors)
                     @foreach($errors->all() as $error)
@@ -31,10 +31,7 @@
                 <div class="form-group row post-form-block">
                     <label for="add_post_select">Category:</label>
                     <select name="category_id" class="post-form-add-select form-control" id="add_post_select">
-                        <option>{{$category[0]->category}}</option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
+                        <option value="{{$row->category_id}}">{{$category->category}}</option>
                     </select>
                 </div>
 
@@ -43,7 +40,12 @@
                     <textarea name="content" id="summernote">{{$row->content}}</textarea>
                 </div>
 
-                <input class="btn btn-primary" type="submit" value="Save">
+                <div class="">
+                    <input class="btn btn-primary" type="submit" value="Save">
+                    <a href="{{url('admin/posts')}}">
+                        <button class="btn btn-primary" type="button" style="background: grey;">Cancel</button>
+                    </a>
+                </div>
             </form>
         </div>
     </div>

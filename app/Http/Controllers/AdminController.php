@@ -45,8 +45,45 @@ class AdminController extends Controller
             case 'edit':
                 $post = new PostModel();
                 $row = $post->find($id);
-                $query = "SELECT category FROM categories WHERE id = :category_id";
-                $category = DB::select($query, ['category_id' => $row->category_id]);
+
+                //use one to many
+                $category = $row->post_category_get()->first();
+
+                //use query
+                //$category = $post->post_category_get($row->category_id);
+
+                if($req->method() == 'POST') {
+                    $validated = $req->validate([
+                        'title' => 'required',
+                        'file' => 'image',
+                        'content' => 'required',
+                    ]);
+
+                    // we create 'my_disk' in App/Config/filesystem.php
+                    // by default files saves in Storage/App/Public
+                    if($req->file('file')) {
+                        //delete old image
+                        $oldrow = $post->find($id);
+                        if(file_exists('uploads/' . $oldrow->image)) {
+                            unlink('uploads/' . $oldrow->image);
+                        }
+                        
+                        //save new image
+                        $path = $req->file('file')->store('/', ['disk' => 'my_disk']);
+                        $data['image'] = $path;
+                    }
+
+                    $data['title'] = $req->input('title');
+                    $data['category_id'] = $req->input('category_id');
+                    $data['content'] = $req->input('content');
+                    $data['updated_at'] = date("Y-m-d H:i:s");
+
+                    $post->where('id', $id)->update($data);
+
+                    return redirect('admin/posts');
+                }
+
+                $row = $post->find($id);
 
                 return view('admin.edit_post', [
                     'page_title' => 'Edit post',

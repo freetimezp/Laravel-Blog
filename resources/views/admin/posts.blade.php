@@ -38,7 +38,9 @@
                                     <a href="{{url('admin/posts/edit') . '/' . $row->id}}">
                                         <button class="btn btn-success"><i class="fa fa-edit"></i> Edit post</button>
                                     </a> |
-                                    Delete
+                                    <a href="{{url('admin/posts/delete') . '/' . $row->id}}">
+                                        <button class="btn btn-danger"><i class="fa fa-minus"></i> Delete post</button>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
