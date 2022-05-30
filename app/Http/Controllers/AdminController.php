@@ -13,7 +13,7 @@ class AdminController extends Controller
         return view('admin.admin', ['page_title' => 'dashboard']);
     }
 
-    public function posts(Request $req, $type = '') {
+    public function posts(Request $req, $type = '', $id = '') {
         switch($type) {
             case 'add':
                 if($req->method() == 'POST') {
@@ -43,7 +43,16 @@ class AdminController extends Controller
                 break;
 
             case 'edit':
-                return view('admin.edit_post', ['page_title' => 'Edit post']);
+                $post = new PostModel();
+                $row = $post->find($id);
+                $query = "SELECT category FROM categories WHERE id = :category_id";
+                $category = DB::select($query, ['category_id' => $row->category_id]);
+
+                return view('admin.edit_post', [
+                    'page_title' => 'Edit post',
+                    'row' => $row,
+                    'category' => $category
+                ]);
                 break;
 
             case 'delete':

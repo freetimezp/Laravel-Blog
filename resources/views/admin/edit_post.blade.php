@@ -19,18 +19,19 @@
                 @endif
                 <div class="form-group row post-form-block">
                     <label for="add_post_title">Title:</label>
-                    <input type="text" class="form-control" name="title" placeholder="Title" id="add_post_title" value="{{old('title')}}">
+                    <input type="text" class="form-control" name="title" placeholder="Title" id="add_post_title" value="{{$row->title}}">
                 </div>
 
                 <div class="form-group row post-form-block">
                     <label for="add_post_image">Image:</label>
+                    <img src="{{url('uploads') . '/' . $row->image}}" alt="edit post">
                     <input type="file" class="form-control" name="file" id="add_post_image">
                 </div>
 
                 <div class="form-group row post-form-block">
                     <label for="add_post_select">Category:</label>
                     <select name="category_id" class="post-form-add-select form-control" id="add_post_select">
-                        <option>--Select a category--</option>
+                        <option>{{$category[0]->category}}</option>
                         <option></option>
                         <option></option>
                         <option></option>
@@ -39,10 +40,10 @@
 
                 <div class="form-group row post-form-block mb-2">
                     <label for="summernote">Content:</label>
-                    <textarea name="content" id="summernote">{{old('content')}}</textarea>
+                    <textarea name="content" id="summernote">{{$row->content}}</textarea>
                 </div>
 
-                <input class="btn btn-primary" type="submit" value="Create">
+                <input class="btn btn-primary" type="submit" value="Save">
             </form>
         </div>
     </div>
@@ -58,5 +59,6 @@
         $('#summernote').summernote();
     });
 </script>
+
 
 

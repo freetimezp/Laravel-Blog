@@ -173,6 +173,21 @@ body {
     display: block;
 }
 
+.post-form-block img {
+    max-width: 300px;
+}
+
+.posts-page-add-button-block {
+    display: flex;
+    align-items: center;
+    vertical-align: center;
+}
+
+.posts-page-add-button-block button {
+    padding: 2px 4px;
+    margin-left: 20px;
+}
+
 
 
 
