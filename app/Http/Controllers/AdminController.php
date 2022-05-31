@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
+use App\Models\User;
 use App\Models\PostModel;
 use App\Models\CategoryModel;
 
@@ -218,61 +219,51 @@ class AdminController extends Controller
 
     public function users(Request $req, $type = '', $id = '') {
         switch ($type) {
-            case 'add':
-                if($req->method() == 'POST') {
-                    $category = new CategoryModel();
-
-                    $validated = $req->validate([
-                        'category' => 'required|string',
-                    ]);
-
-                    $data['category'] = $req->input('category');
-                    $data['created_at'] = date("Y-m-d H:i:s");
-                    $data['updated_at'] = date("Y-m-d H:i:s");
-
-                    $category->insert($data);
-
-                    return redirect('admin/categories');
-                }
-
-                return view('admin.add_category', ['page_title' => 'New category']);
-                break;
             case 'edit':
-                $category = new CategoryModel();
-                $row = $category->find($id);
+                $user = new User();
+                $row = $user->find($id);
 
                 if($req->method() == 'POST') {
                     $validated = $req->validate([
-                        'category' => 'required|string',
+                        'name' => 'required|string',
+                        'email' => 'required|email',
                     ]);
 
-                    $data['category'] = $req->input('category');
+                    $data['name'] = $req->input('name');
+                    $data['email'] = $req->input('email');
                     $data['updated_at'] = date("Y-m-d H:i:s");
 
-                    $category->where('id', $id)->update($data);
+                    if(!empty($req->input('password'))) {
+                        $data['password'] = Hash::make($req->input('password'));
+                    }
 
-                    return redirect('admin/categories');
+                    $user->where('id', $id)->update($data);
+
+                    return redirect('admin/users');
                 }
 
-                $row = $category->find($id);
+                $row = $user->find($id);
 
-                return view('admin.edit_category', [
-                    'page_title' => 'Edit category',
-                    'row' => $row,
+                return view('admin.edit_user', [
+                    'page_title' => 'Edit user',
+                    'row' => $row
                 ]);
                 break;
 
             case 'delete':
-                $category = new CategoryModel();
-                $row = $category->find($id);
+                $user = new User();
+                $row = $user->find($id);
 
                 if($req->method() == 'POST') {
-                    $row->delete();
-                    return redirect('admin/categories');
+                    if($row->id != 1) {
+                        $row->delete();
+                    }
+
+                    return redirect('admin/users');
                 }
 
-                return view('admin.delete_category', [
-                    'page_title' => 'Delete category',
+                return view('admin.delete_user', [
+                    'page_title' => 'Delete user',
                     'row' => $row
                 ]);
 
