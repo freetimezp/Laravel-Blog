@@ -67,7 +67,7 @@ class AdminController extends Controller
                         if(file_exists('uploads/' . $oldrow->image)) {
                             unlink('uploads/' . $oldrow->image);
                         }
-                        
+
                         //save new image
                         $path = $req->file('file')->store('/', ['disk' => 'my_disk']);
                         $data['image'] = $path;
@@ -93,7 +93,34 @@ class AdminController extends Controller
                 break;
 
             case 'delete':
-                return view('admin.delete_post', ['page_title' => 'Delete post']);
+                $post = new PostModel();
+                $row = $post->find($id);
+
+                //use one to many
+                $category = $row->post_category_get()->first();
+
+                //use query
+                //$category = $post->post_category_get($row->category_id);
+
+                if($req->method() == 'POST') {
+                    //delete image
+                    $oldrow = $post->find($id);
+                    if(file_exists('uploads/' . $oldrow->image)) {
+                        unlink('uploads/' . $oldrow->image);
+                    }
+
+                    $row->delete();
+                    return redirect('admin/posts');
+                }
+
+                $row = $post->find($id);
+
+                return view('admin.delete_post', [
+                    'page_title' => 'Delete post',
+                    'row' => $row,
+                    'category' => $category
+                ]);
+
                 break;
 
             default:

@@ -177,19 +177,21 @@ body {
     max-width: 300px;
 }
 
-.posts-page-add-button-block {
+.posts-page-add-button-block,
+.posts-page-edit-button-block,
+.posts-page-delete-button-block {
     display: flex;
     align-items: center;
-}
-
-.posts-page-edit-button-block {
-    display: flex;
-    align-items: center;
+    padding: 20px;
 }
 
 .posts-page-add-button-block button {
     padding: 2px 4px;
     margin-left: 20px;
+}
+
+.posts-page-edit-button-block input {
+    margin-right: 20px;
 }
 
 

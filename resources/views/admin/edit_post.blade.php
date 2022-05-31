@@ -40,7 +40,7 @@
                     <textarea name="content" id="summernote">{{$row->content}}</textarea>
                 </div>
 
-                <div class="">
+                <div class="posts-page-edit-button-block">
                     <input class="btn btn-primary" type="submit" value="Save">
                     <a href="{{url('admin/posts')}}">
                         <button class="btn btn-primary" type="button" style="background: grey;">Cancel</button>
