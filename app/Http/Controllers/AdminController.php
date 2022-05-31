@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
+
 use App\Models\PostModel;
+use App\Models\CategoryModel;
 
 class AdminController extends Controller
 {
@@ -20,9 +23,9 @@ class AdminController extends Controller
                     $post = new PostModel();
 
                     $validated = $req->validate([
-                        'title' => 'required',
+                        'title' => 'required|string',
                         'file' => 'required|image',
-                        'content' => 'required',
+                        'content' => 'required'
                     ]);
 
                     // we create 'my_disk' in App/Config/filesystem.php
@@ -31,12 +34,14 @@ class AdminController extends Controller
 
                     $data['title'] = $req->input('title');
                     $data['category_id'] = 1;
-                    $data['image'] = $path;
+                    $data['file'] = $path;
                     $data['content'] = $req->input('content');
                     $data['created_at'] = date("Y-m-d H:i:s");
                     $data['updated_at'] = date("Y-m-d H:i:s");
 
                     $post->insert($data);
+                    return redirect('admin/posts');
+
                 }
 
                 return view('admin.add_post', ['page_title' => 'New post']);
@@ -113,8 +118,6 @@ class AdminController extends Controller
                     return redirect('admin/posts');
                 }
 
-                $row = $post->find($id);
-
                 return view('admin.delete_post', [
                     'page_title' => 'Delete post',
                     'row' => $row,
@@ -131,19 +134,89 @@ class AdminController extends Controller
                 $rows = DB::select($query);
 
                 $data['rows'] = $rows;
-                $data['page_title'] = 'posts';
+                $data['page_title'] = 'Posts page';
 
                 return view('admin.posts', $data);
                 break;
         }
     }
 
-    public function categories(Request $req) {
-        return view('admin.admin', ['page_title' => 'categories']);
+    public function categories(Request $req, $type = '', $id = '') {
+        switch ($type) {
+            case 'add':
+                if($req->method() == 'POST') {
+                    $category = new CategoryModel();
+
+                    $validated = $req->validate([
+                        'category' => 'required|string',
+                    ]);
+
+                    $data['category'] = $req->input('category');
+                    $data['created_at'] = date("Y-m-d H:i:s");
+                    $data['updated_at'] = date("Y-m-d H:i:s");
+
+                    $category->insert($data);
+
+                    return redirect('admin/categories');
+                }
+
+                return view('admin.add_category', ['page_title' => 'New category']);
+                break;
+            case 'edit':
+                $category = new CategoryModel();
+                $row = $category->find($id);
+
+                if($req->method() == 'POST') {
+                    $validated = $req->validate([
+                        'category' => 'required|string',
+                    ]);
+
+                    $data['category'] = $req->input('category');
+                    $data['updated_at'] = date("Y-m-d H:i:s");
+
+                    $category->where('id', $id)->update($data);
+
+                    return redirect('admin/categories');
+                }
+
+                $row = $category->find($id);
+
+                return view('admin.edit_category', [
+                    'page_title' => 'Edit category',
+                    'row' => $row,
+                ]);
+                break;
+
+            case 'delete':
+                $category = new CategoryModel();
+                $row = $category->find($id);
+
+                if($req->method() == 'POST') {
+                    $row->delete();
+                    return redirect('admin/categories');
+                }
+
+                return view('admin.delete_category', [
+                    'page_title' => 'Delete category',
+                    'row' => $row
+                ]);
+
+                break;
+
+            default:
+                $category = new CategoryModel();
+                $rows = $category->all();
+
+                $data['rows'] = $rows;
+                $data['page_title'] = 'Categories page';
+
+                return view('admin.categories', $data);
+                break;
+        }
     }
 
     public function users(Request $req) {
-        return view('admin.admin', ['page_title' => 'users']);
+        return view('admin.admin', ['page_title' => 'Users page']);
     }
 
     public function save(Request $req) {

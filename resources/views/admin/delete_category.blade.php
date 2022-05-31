@@ -9,7 +9,7 @@
             </div>
 
             @if ($row)
-                <form class="post-form-delete col-lg-10" enctype="multipart/form-data" method="post">
+                <form class="category-form-delete col-lg-10" enctype="multipart/form-data" method="post">
                     @csrf
                     @if ($errors)
                         @foreach($errors->all() as $error)
@@ -18,31 +18,29 @@
                     @endif
 
                     <div class="form-group row post-form-block">
-                        <label for="add_post_title">Title:</label>
-                        <input disabled type="text" class="form-control" name="title" placeholder="Title" id="add_post_title" value="{{$row->title}}">
-                    </div>
-                    <div class="form-group row post-form-block">
-                        <label>Image:</label>
-                        <img src="{{url('uploads') . '/' . $row->image}}" alt="edit post">
+                        <label for="add_category_title">Category:</label>
+                        <input disabled type="text" class="form-control" name="category" placeholder="Category" id="add_category_title" value="{{$row->category}}">
                     </div>
 
-                    <p>Are you sure you want to delete this post?</p>
+                    <p>Are you sure you want to delete this category?</p>
                     <div class="">
                         <input class="btn btn-primary" type="submit" value="Delete">
-                        <a href="{{url('admin/posts')}}">
+                        <a href="{{url('admin/categories')}}">
                             <button class="btn btn-primary" type="button" style="background: grey;">Cancel</button>
                         </a>
                     </div>
                 </form>
             @else
-                <p style="margin-left: 20px; font-size: 20px; color: red;">No such post found in database!</p>
+                <p style="margin-left: 20px; font-size: 20px; color: red;">No such category found in database!</p>
             @endif
+
         </div>
     </div>
 </div>
 <!-- /. PAGE WRAPPER  -->
 
 @include('admin.footer')
+
 
 
 
