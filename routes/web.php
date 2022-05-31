@@ -33,7 +33,7 @@ Route::post('/login', [LoginController::class, 'save']);
 
 Route::get('/signup', function () {
     return view('auth.signup');
-});
+})->middleware('auth');
 Route::post('/signup', [SignupController::class, 'save']);
 
 Route::get('/admin', [AdminController::class, 'index'])->middleware('auth');
@@ -49,7 +49,6 @@ Route::get('/admin/categories/{type}', [AdminController::class, 'categories'])->
 Route::post('/admin/categories/{type}', [AdminController::class, 'categories'])->middleware('auth');
 Route::get('/admin/categories/{type}/{id}', [AdminController::class, 'categories'])->middleware('auth');
 Route::post('/admin/categories/{type}/{id}', [AdminController::class, 'categories'])->middleware('auth');
-
 
 Route::get('/admin/users', [AdminController::class, 'users'])->middleware('auth');
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -215,8 +216,80 @@ class AdminController extends Controller
         }
     }
 
-    public function users(Request $req) {
-        return view('admin.admin', ['page_title' => 'Users page']);
+    public function users(Request $req, $type = '', $id = '') {
+        switch ($type) {
+            case 'add':
+                if($req->method() == 'POST') {
+                    $category = new CategoryModel();
+
+                    $validated = $req->validate([
+                        'category' => 'required|string',
+                    ]);
+
+                    $data['category'] = $req->input('category');
+                    $data['created_at'] = date("Y-m-d H:i:s");
+                    $data['updated_at'] = date("Y-m-d H:i:s");
+
+                    $category->insert($data);
+
+                    return redirect('admin/categories');
+                }
+
+                return view('admin.add_category', ['page_title' => 'New category']);
+                break;
+            case 'edit':
+                $category = new CategoryModel();
+                $row = $category->find($id);
+
+                if($req->method() == 'POST') {
+                    $validated = $req->validate([
+                        'category' => 'required|string',
+                    ]);
+
+                    $data['category'] = $req->input('category');
+                    $data['updated_at'] = date("Y-m-d H:i:s");
+
+                    $category->where('id', $id)->update($data);
+
+                    return redirect('admin/categories');
+                }
+
+                $row = $category->find($id);
+
+                return view('admin.edit_category', [
+                    'page_title' => 'Edit category',
+                    'row' => $row,
+                ]);
+                break;
+
+            case 'delete':
+                $category = new CategoryModel();
+                $row = $category->find($id);
+
+                if($req->method() == 'POST') {
+                    $row->delete();
+                    return redirect('admin/categories');
+                }
+
+                return view('admin.delete_category', [
+                    'page_title' => 'Delete category',
+                    'row' => $row
+                ]);
+
+                break;
+
+            default:
+                $user = new User();
+                $rows = $user->all();
+
+                $data['rows'] = $rows;
+                $data['page_title'] = 'Users page';
+
+                return view('admin.users', $data);
+                break;
+        }
+
+
     }
 
     public function save(Request $req) {
