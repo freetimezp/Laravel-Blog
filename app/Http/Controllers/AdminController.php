@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\PostModel;
 use App\Models\CategoryModel;
+use App\Models\ImageModel;
 
 class AdminController extends Controller
 {
@@ -133,7 +134,14 @@ class AdminController extends Controller
                 //$rows = $post->all();
 
                 $query = "SELECT posts.*, categories.category FROM posts JOIN categories ON posts.category_id = categories.id";
+
+                //crop image
+                $img = new ImageModel();
                 $rows = DB::select($query);
+
+                foreach ($rows as $key => $row) {
+                    $rows[$key]->image = $img->get_thumb('uploads/' . $row->image);
+                }
 
                 $data['rows'] = $rows;
                 $data['page_title'] = 'Posts page';
