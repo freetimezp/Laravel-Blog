@@ -10,7 +10,8 @@
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-      "ext-gd": "*"
+      "ext-gd": "*",
+      "ext-iconv": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

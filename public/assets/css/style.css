@@ -21,11 +21,6 @@ body.fh5co-overflow {
   overflow-x: auto;
 }
 
-::-webkit-selection {
-  color: #fff;
-  background: #f7c873;
-}
-
 ::-moz-selection {
   color: #fff;
   background: #f7c873;
@@ -37,13 +32,11 @@ body.fh5co-overflow {
 }
 
 a {
-  color: #f7c873;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
 }
 a:hover, a:focus, a:active {
-  color: #f3ac2b;
   outline: none;
   text-decoration: none;
 }
@@ -317,7 +310,7 @@ p {
 }
 .fh5co-post-prev span,
 .fh5co-post-next span {
-  vertical-align: base;
+  vertical-align: middle;
   width: 100px;
 }
 .fh5co-post-prev span i,
@@ -438,6 +431,20 @@ p {
   margin-bottom: 20px;
   display: block;
 }
+
+article .fh5co-meta a {
+    color: #315ed0;
+    font-weight: 700;
+    transition: all 0.6s ease;
+    display: block;
+}
+
+article .fh5co-meta a:hover {
+    color: #1445c1;
+    transform: rotate(-15deg);
+}
+
+
 @media screen and (max-width: 480px) {
   .fh5co-post-entry article .fh5co-meta {
     margin-bottom: 10px;

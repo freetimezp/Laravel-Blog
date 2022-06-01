@@ -28,6 +28,7 @@ class AdminController extends Controller
                     $validated = $req->validate([
                         'title' => 'required|string',
                         'file' => 'required|image',
+                        'category_id' => 'required',
                         'content' => 'required'
                     ]);
 
@@ -36,18 +37,25 @@ class AdminController extends Controller
                     $path = $req->file('file')->store('/', ['disk' => 'my_disk']);
 
                     $data['title'] = $req->input('title');
-                    $data['category_id'] = 1;
-                    $data['file'] = $path;
+                    $data['image'] = $path;
+                    $data['category_id'] = $req->input('category_id');
                     $data['content'] = $req->input('content');
                     $data['created_at'] = date("Y-m-d H:i:s");
                     $data['updated_at'] = date("Y-m-d H:i:s");
+                    $data['slag'] = $post->str_to_url($data['title']);
 
                     $post->insert($data);
                     return redirect('admin/posts');
 
                 }
 
-                return view('admin.add_post', ['page_title' => 'New post']);
+                $query = "SELECT * FROM categories";
+                $categories = DB::select($query);
+
+                return view('admin.add_post', [
+                    'page_title' => 'New post',
+                    'categories' => $categories
+                ]);
                 break;
 
             case 'edit':
