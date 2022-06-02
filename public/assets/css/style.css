@@ -490,6 +490,13 @@ article .fh5co-meta a:hover {
 .fh5co-post-entry article .fh5co-highlight.left {
   float: left;
 }
+
+.fh5co-post-entry {
+    display: flex;
+    flex-wrap: wrap;
+    align-self: flex-start;
+}
+
 .fh5co-post-entry article .fh5co-highlight h4 {
   font-size: 14px;
   letter-spacing: 2px;

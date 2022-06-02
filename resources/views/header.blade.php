@@ -54,8 +54,8 @@
             <img src="{{url('assets/images/person1.jpg')}}" alt="Free HTML5 Bootstrap Template" class="img-responsive">
         </figure>
         <h3 class="heading">About Me</h3>
-        <h2>Emily Tran Le</h2>
-        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
+        <h2>Evgen Onoprienko</h2>
+        <p>Ukraine Country</p>
         <ul class="fh5co-social">
             <li><a href="#"><i class="icon-twitter"></i></a></li>
             <li><a href="#"><i class="icon-facebook"></i></a></li>
@@ -74,9 +74,10 @@
         </div>
         <div class="fh5co-box">
             <h3 class="heading">Search</h3>
-            <form action="#">
+            <form action="{{url('/')}}">
+                @csrf
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Type a keyword">
+                    <input type="text" name="find" value="" class="form-control" placeholder="Type a keyword">
                 </div>
             </form>
         </div>
