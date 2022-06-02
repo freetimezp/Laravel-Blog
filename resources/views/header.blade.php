@@ -13,20 +13,6 @@
     <meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
     <meta name="author" content="FREEHTML5.CO" />
 
-    <!--
-      //////////////////////////////////////////////////////
-
-      FREE HTML5 TEMPLATE
-      DESIGNED & DEVELOPED by FREEHTML5.CO
-
-      Website: 		http://freehtml5.co/
-      Email: 			info@freehtml5.co
-      Twitter: 		http://twitter.com/fh5co
-      Facebook: 		https://www.facebook.com/fh5co
-
-      //////////////////////////////////////////////////////
-       -->
-
     <!-- Facebook and Twitter integration -->
     <meta property="og:title" content=""/>
     <meta property="og:image" content=""/>
@@ -81,11 +67,9 @@
         <div class="fh5co-box">
             <h3 class="heading">Categories</h3>
             <ul>
-                <li><a href="#">Travel</a></li>
-                <li><a href="#">Style</a></li>
-                <li><a href="#">Photography</a></li>
-                <li><a href="#">Food &amp; Drinks</a></li>
-                <li><a href="#">Culture</a></li>
+                @foreach($rows as $row)
+                    <li><a href="#">{{$row->category}}</a></li>
+                @endforeach
             </ul>
         </div>
         <div class="fh5co-box">

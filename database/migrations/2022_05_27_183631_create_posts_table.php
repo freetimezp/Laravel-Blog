@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title', 255)->index();
             $table->integer('category_id')->index();
             $table->string('image', 255);
+            $table->string('slag', 100);
             $table->string('content');
             $table->timestamps();
         });

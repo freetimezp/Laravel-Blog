@@ -6,7 +6,7 @@
         @foreach ($rows as $row)
             <article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
                 <figure>
-                    <a href="{{url('single')}}">
+                    <a href="{{url('single/' . $row->slag)}}">
                         <img src="{{url($row->image)}}" alt="Image" class="img-responsive">
                     </a>
                 </figure>

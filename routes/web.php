@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\SingleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -20,9 +22,7 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/single', function () {
-    return view('single');
-});
+Route::get('/single/{slag}', [SingleController::class, 'index']);
 
 Route::get('/login', function () {
     return view('auth.login');
