@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\PostModel;
 use App\Models\CategoryModel;
 use App\Models\ImageModel;
+use App\Models\PageModel;
 
 class AdminController extends Controller
 {
@@ -141,7 +142,15 @@ class AdminController extends Controller
                 //$post = new PostModel();
                 //$rows = $post->all();
 
-                $query = "SELECT posts.*, categories.category FROM posts JOIN categories ON posts.category_id = categories.id";
+                $limit = 2;
+                $page = $req->input('page') ? (int)$req->input('page') : 1;
+                $offset = ($page - 1) * $limit;
+
+                $page_class = new PageModel();
+                $links = $page_class->make_links($req->fullUrl(), $page);
+
+                $query = "SELECT posts.*, categories.category FROM posts JOIN categories ON posts.category_id = categories.id
+                            LIMIT $limit OFFSET $offset";
 
                 //crop image
                 $img = new ImageModel();
@@ -153,6 +162,7 @@ class AdminController extends Controller
 
                 $data['rows'] = $rows;
                 $data['page_title'] = 'Posts page';
+                $data['links'] = $links;
 
                 return view('admin.posts', $data);
                 break;
