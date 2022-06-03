@@ -67,8 +67,8 @@
         <div class="fh5co-box">
             <h3 class="heading">Categories</h3>
             <ul>
-                @foreach($rows as $row)
-                    <li><a href="#">{{$row->category}}</a></li>
+                @foreach($categories as $category)
+                    <li><a href="{{url('/' . '?cat=' . $category->id)}}">{{$category->category}}</a></li>
                 @endforeach
             </ul>
         </div>

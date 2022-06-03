@@ -33,7 +33,7 @@
                                 <td>{{$row->category}}</td>
                                 <td>{{$row->content}}</td>
                                 <td><img src="{{url($row->image)}}" alt="post" style="width:150px;"></td>
-                                <td>{{date("jS M, Y", strtotime($row->created_at))}}</td>
+                                <td>{{date("jS M, Y", strtotime($row->updated_at))}}</td>
                                 <td>
                                     <a href="{{url('admin/posts/edit') . '/' . $row->id}}">
                                         <button class="btn btn-success"><i class="fa fa-edit"></i> Edit post</button>

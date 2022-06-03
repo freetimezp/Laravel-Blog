@@ -22,6 +22,7 @@ class SingleController extends Controller
         }
 
         $data['rows'] = $rows;
+        $data['categories'] = $rows;
 
         return view('single', $data);
     }

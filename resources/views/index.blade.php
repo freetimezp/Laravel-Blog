@@ -5,14 +5,14 @@
 
         @foreach ($rows as $row)
             <article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-                <figure>
-                    <a href="{{url('single/' . $row->slag)}}">
-                        <img src="{{url($row->image)}}" alt="Image" class="img-responsive">
-                    </a>
-                </figure>
-                <span class="fh5co-meta"><a href="{{url('single')}}p">{{$row->category}}</a></span>
-                <h2 class="fh5co-article-title" style="min-height: 75px;"><a href="{{url('single')}}">{{ucfirst($row->title)}}</a></h2>
-                <span class="fh5co-meta fh5co-date">{{date("jS M, Y", strtotime($row->updated_at))}}</span>
+                <a href="{{url('single/' . $row->slag)}}">
+                    <figure>
+                            <img src="{{url($row->image)}}" alt="Image" class="img-responsive">
+                    </figure>
+                    <span class="fh5co-meta">{{$row->category}}</span>
+                    <h2 class="fh5co-article-title" style="min-height: 75px;">{{ucfirst($row->title)}}</h2>
+                    <span class="fh5co-meta fh5co-date">{{date("jS M, Y", strtotime($row->updated_at))}}</span>
+                </a>
             </article>
         @endforeach
 

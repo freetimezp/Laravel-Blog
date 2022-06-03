@@ -90,6 +90,9 @@ class AdminController extends Controller
                         $data['image'] = $path;
                     }
 
+                    $query = "SELECT * FROM categories";
+                    $categories = DB::select($query);
+
                     $data['title'] = $req->input('title');
                     $data['category_id'] = $req->input('category_id');
                     $data['content'] = $req->input('content');
@@ -100,12 +103,16 @@ class AdminController extends Controller
                     return redirect('admin/posts');
                 }
 
+                $query = "SELECT * FROM categories";
+                $categories = DB::select($query);
+
                 $row = $post->find($id);
 
                 return view('admin.edit_post', [
                     'page_title' => 'Edit post',
                     'row' => $row,
-                    'category' => $category
+                    'category' => $category,
+                    'categories' => $categories
                 ]);
                 break;
 

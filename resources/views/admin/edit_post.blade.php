@@ -33,6 +33,9 @@
                         <label for="add_post_select">Category:</label>
                         <select name="category_id" class="post-form-add-select form-control" id="add_post_select">
                             <option value="{{$row->category_id}}">{{$category->category}}</option>
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->category}}</option>
+                            @endforeach
                         </select>
                     </div>
 

@@ -7,9 +7,8 @@
             <figure class="animate-box">
                 <img src="{{url('uploads' . '/' . $row->image)}}" alt="Image" class="img-responsive" style="margin: 0 auto;">
             </figure>
-            <span class="fh5co-meta animate-box"><a href="{{url('single')}}">{{$category->category}}</a></span>
-            <h2 class="fh5co-article-title animate-box">
-                <a href="{{url('single')}}">{{$row->title}}</a></h2>
+            <span class="fh5co-meta animate-box"><span>{{$category->category}}</span></span>
+            <h2 class="fh5co-article-title animate-box">{{$row->title}}</h2>
             <span class="fh5co-meta fh5co-date animate-box">{{date("jS M, Y", strtotime($row->updated_at))}}</span>
 
             <div
