@@ -142,12 +142,12 @@ class AdminController extends Controller
                 //$post = new PostModel();
                 //$rows = $post->all();
 
-                $limit = 2;
+                $limit = 5;
                 $page = $req->input('page') ? (int)$req->input('page') : 1;
                 $offset = ($page - 1) * $limit;
 
                 $page_class = new PageModel();
-                $links = $page_class->make_links($req->fullUrl(), $page);
+                $links = $page_class->make_links($req->fullUrlWithQuery(['page' => $page]), $page);
 
                 $query = "SELECT posts.*, categories.category FROM posts JOIN categories ON posts.category_id = categories.id
                             LIMIT $limit OFFSET $offset";
@@ -232,11 +232,20 @@ class AdminController extends Controller
                 break;
 
             default:
-                $category = new CategoryModel();
-                $rows = $category->all();
+                $limit = 10;
+                $page = $req->input('page') ? (int)$req->input('page') : 1;
+                $offset = ($page - 1) * $limit;
+
+                $page_class = new PageModel();
+                $links = $page_class->make_links($req->fullUrlWithQuery(['page' => $page]), $page);
+
+                $query = "SELECT * FROM categories LIMIT $limit OFFSET $offset";
+
+                $rows = DB::select($query);
 
                 $data['rows'] = $rows;
                 $data['page_title'] = 'Categories page';
+                $data['links'] = $links;
 
                 return view('admin.categories', $data);
                 break;
@@ -296,11 +305,20 @@ class AdminController extends Controller
                 break;
 
             default:
-                $user = new User();
-                $rows = $user->all();
+                $limit = 10;
+                $page = $req->input('page') ? (int)$req->input('page') : 1;
+                $offset = ($page - 1) * $limit;
+
+                $page_class = new PageModel();
+                $links = $page_class->make_links($req->fullUrlWithQuery(['page' => $page]), $page);
+
+                $query = "SELECT * FROM users LIMIT $limit OFFSET $offset";
+
+                $rows = DB::select($query);
 
                 $data['rows'] = $rows;
                 $data['page_title'] = 'Users page';
+                $data['links'] = $links;
 
                 return view('admin.users', $data);
                 break;

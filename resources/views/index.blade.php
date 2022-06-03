@@ -11,10 +11,16 @@
                     </a>
                 </figure>
                 <span class="fh5co-meta"><a href="{{url('single')}}p">{{$row->category}}</a></span>
-                <h2 class="fh5co-article-title"><a href="{{url('single')}}">{{ucfirst($row->title)}}</a></h2>
+                <h2 class="fh5co-article-title" style="min-height: 75px;"><a href="{{url('single')}}">{{ucfirst($row->title)}}</a></h2>
                 <span class="fh5co-meta fh5co-date">{{date("jS M, Y", strtotime($row->updated_at))}}</span>
             </article>
         @endforeach
+
+        <span class="clearfix"></span>
+
+        <div style="display: block; text-align: center; width: 100%;">
+            @include('pagination')
+        </div>
 
     </div>
 </div>

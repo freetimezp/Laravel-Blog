@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PageModel;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -11,15 +12,22 @@ use App\Models\ImageModel;
 class HomeController extends Controller
 {
     public function index(Request $req) {
-        //print_r($req->input('find'));die;
+        $limit = 8;
+        $page = $req->input('page') ? (int)$req->input('page') : 1;
+        $offset = ($page - 1) * $limit;
+
+        $page_class = new PageModel();
+        $links = $page_class->make_links($req->fullUrlWithQuery(['page' => $page]), $page);
+
         if($req->input('find')) {
             $query = "SELECT posts.*, categories.category FROM posts JOIN categories ON posts.category_id = categories.id
-                        WHERE title LIKE :title";
+                        WHERE title LIKE :title LIMIT $limit OFFSET $offset";
 
             $title = "%" . $req->input('find') . "%";
             $rows = DB::select($query, ['title' => $title]);
         }else{
-            $query = "SELECT posts.*, categories.category FROM posts JOIN categories ON posts.category_id = categories.id";
+            $query = "SELECT posts.*, categories.category FROM posts JOIN categories ON posts.category_id = categories.id
+                        LIMIT $limit OFFSET $offset";
             $rows = DB::select($query);
         }
 
@@ -32,6 +40,7 @@ class HomeController extends Controller
 
         $data['rows'] = $rows;
         $data['page_title'] = 'Home page';
+        $data['links'] = $links;
 
         return view('index', $data);
     }

@@ -41,6 +41,9 @@
                 @endif
                 </tbody>
             </table>
+
+            @include('pagination')
+
         </div>
     </div>
 </div>
