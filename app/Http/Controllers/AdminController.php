@@ -33,6 +33,37 @@ class AdminController extends Controller
                         'content' => 'required'
                     ]);
 
+                    //remove image from 'content'
+                    //select all images in content
+                    preg_match_all('/<img[^>]+>/', $req->input('content'), $matches);
+                    $new_content = $req->input('content');
+
+                    //folder for files from content
+                    $folder = 'uploads/content/';
+                    if(!file_exists($folder)) {
+                        mkdir($folder, 0777, true);
+                    }
+
+                    $image_class = new ImageModel();
+
+                    if(is_array($matches) && count($matches) > 0) {
+                        foreach ($matches as $match) {
+                            //select src in single image
+                            preg_match('/src="[^"]+/', $match[0], $matches2);
+
+                            //make array from string
+                            $parts = explode("," , $matches2[0]);
+
+                            //make filename
+                            $filename = $folder . "base_64_" . $image_class->generate_filename(50) . '.jpg';
+
+                            //replace images
+                            $new_content = str_replace($parts[0] . ',' . $parts[1], 'src="' . $filename, $new_content);
+
+                            file_put_contents($filename, base64_decode($parts[1]));
+                        }
+                    }
+
                     // we create 'my_disk' in App/Config/filesystem.php
                     // by default files saves in Storage/App/Public
                     $path = $req->file('file')->store('/', ['disk' => 'my_disk']);
@@ -40,7 +71,7 @@ class AdminController extends Controller
                     $data['title'] = $req->input('title');
                     $data['image'] = $path;
                     $data['category_id'] = $req->input('category_id');
-                    $data['content'] = $req->input('content');
+                    $data['content'] = $new_content;
                     $data['created_at'] = date("Y-m-d H:i:s");
                     $data['updated_at'] = date("Y-m-d H:i:s");
                     $data['slag'] = $post->str_to_url($data['title']);

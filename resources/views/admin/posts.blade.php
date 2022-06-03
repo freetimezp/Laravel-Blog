@@ -31,7 +31,7 @@
                             <tr>
                                 <td>{{$row->title}}</td>
                                 <td>{{$row->category}}</td>
-                                <td>{{$row->content}}</td>
+                                <td><?=$row->content?></td>
                                 <td><img src="{{url($row->image)}}" alt="post" style="width:150px;"></td>
                                 <td>{{date("jS M, Y", strtotime($row->updated_at))}}</td>
                                 <td>
