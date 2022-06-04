@@ -47,9 +47,9 @@ class AdminController extends Controller
                     $image_class = new ImageModel();
 
                     if(is_array($matches) && count($matches) > 0) {
-                        foreach ($matches as $match) {
+                        foreach ($matches[0] as $match) {
                             //select src in single image
-                            preg_match('/src="[^"]+/', $match[0], $matches2);
+                            preg_match('/src="[^"]+/', $match, $matches2);
 
                             //make array from string
                             $parts = explode("," , $matches2[0]);
@@ -67,6 +67,10 @@ class AdminController extends Controller
                     // we create 'my_disk' in App/Config/filesystem.php
                     // by default files saves in Storage/App/Public
                     $path = $req->file('file')->store('/', ['disk' => 'my_disk']);
+
+                    //replace with full url for images to display
+                    $root_url = url('');
+                    $new_content = str_replace('src="', 'src="' . $root_url . '/' , $new_content);
 
                     $data['title'] = $req->input('title');
                     $data['image'] = $path;
